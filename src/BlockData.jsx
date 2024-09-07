@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { getLatestBlock, getGasPrice } from './ethUtils';
-import styled, { ThemeProvider } from 'styled-components';
+import styled, { keyframes, ThemeProvider } from 'styled-components';
 
 function BlockData() {
     const [block, setBlock] = useState(null);
@@ -31,12 +31,19 @@ function BlockData() {
 
     if (loading) return (
         <ThemeProvider theme={theme}>
-            <LoadingMessage>Loading data...</LoadingMessage> 
+            <GasCheckContainer>
+                <SpinnerContainer>
+                    <Spinner />
+                </SpinnerContainer>
+                <LoadingMessage>Loading gas data...</LoadingMessage>
+            </GasCheckContainer>
         </ThemeProvider>
     ) ;
     if (error) return (
         <ThemeProvider theme={theme}>
-            <ErrorMessage>{error}</ErrorMessage> 
+            <GasCheckContainer>    
+                <ErrorMessage>{error}</ErrorMessage> 
+            </GasCheckContainer>
         </ThemeProvider>
     );
     console.log("BLOCK OBJECT: \n", block);
@@ -79,22 +86,52 @@ function BlockData() {
 
 export default BlockData;
 
-const MessageBase = styled.p`
+const pulse = keyframes`
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+`;
+
+const LoadingMessage = styled.div`
     font-size: 1.5rem;
-    color: ${(props) => props.theme.textColor};
-    background-color: ${(props) => props.theme.cardBgColor};
-    padding: 1rem;
-    border-radius: 8px;
+    color: #0070f3;
+    animation: ${pulse} 1.5s ease-in-out infinite;
     text-align: center;
-    margin: 2rem;
 `;
 
-const LoadingMessage = styled(MessageBase)`
-    color: ${(props) => props.theme.accentColor};
+
+
+const SpinnerContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
 `;
 
-const ErrorMessage = styled(MessageBase)`
-    color: red;
+const spin = keyframes`
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+    border: 4px solid rgba(0, 112, 243, 0.1);
+    border-left-color: #0070f3;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: ${spin} 1s linear infinite;
+`;
+
+const ErrorMessage = styled.div`
+    font-size: 1.5rem;
+    color: #ff4040;
+    text-align: center;
+    padding: 2rem;
+    background-color: rgba(255, 64, 64, 0.1);
+    border-radius: 8px;
+    border: 1px solid #ff4040;
+    max-width: 80%;
+    margin: 0 auto;
 `;
 
 // Define the theme
