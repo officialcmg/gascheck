@@ -56,7 +56,7 @@ function BlockData() {
                 <DataGrid>
                     <DataCard>
                         <CardTitle>Gas Price</CardTitle>
-                        <CardText $isPrimary={true}>{gasPrice} <SecondaryText>Gwei</SecondaryText></CardText>
+                        <CardText $isPrimary>{gasPrice} <SecondaryText>Gwei</SecondaryText></CardText>
                     </DataCard>
                     <DataCard>
                         <CardTitle>Block Number</CardTitle>
@@ -151,7 +151,7 @@ const GasCheckContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     padding: 2rem;
 `;
